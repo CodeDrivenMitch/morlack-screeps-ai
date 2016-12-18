@@ -1,10 +1,17 @@
-const roleHarvester = require('./role.harvester');
+// Vanilla extensions
 
+// Roles
+require('./role.harvester');
+require('./role.upgrader');
+require('./creep');
 
-module.exports.loop = () => {
+import Logger from 'util.logger'
+import SettingManager from 'manager.setting'
 
+module.exports.loop = function() {
+    Logger.debug("Loop!");
     for (let name in Game.creeps) {
         let creep = Game.creeps[name];
-        roleHarvester.run(creep);
+        creep.runRole();
     }
 };

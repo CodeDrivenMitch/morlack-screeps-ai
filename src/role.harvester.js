@@ -1,16 +1,16 @@
-module.exports.roleHarvester = {
-    /** @param {Creep} creep **/
-    run: function (creep) {
-        if (creep.carry.energy < creep.carryCapacity) {
-            let sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0]);
-            }
+Creep.prototype.runRoleHarvester = function() {
+    if (this.carry.energy < this.carryCapacity) {
+        let sources = this.room.find(FIND_SOURCES);
+        if (this.harvest(sources[0])) {
+            this.moveTo(sources[0]);
         }
-        else {
-            if (creep.transfer(Game.spawns['Spawn1'], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(Game.spawns['Spawn1']);
-            }
+    }
+    else {
+        let transferResult = this.transfer(Game.spawns['Spawn1'], RESOURCE_ENERGY);
+        if (transferResult != OK) {
+            this.moveTo(Game.spawns['Spawn1']);
         }
     }
 };
+
+

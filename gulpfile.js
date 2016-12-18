@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const clean = require('gulp-clean');
+const watch = require('gulp-watch');
 
 const settings = require('./settings');
 
@@ -18,6 +19,10 @@ gulp.task('compile', ['clean'], () => {
             presets: ['es2015']
         }))
         .pipe(gulp.dest(settings.outputDir));
+});
+
+gulp.task('watch', () => {
+    return gulp.watch('src/*.js', ['compile'])
 });
 
 gulp.task('default', ['clean', 'compile']);
