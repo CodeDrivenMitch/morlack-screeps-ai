@@ -1,4 +1,4 @@
-import SettingManager from 'manager.setting';
+import SettingManager from './manager.setting';
 
 class Logger {
     static debug(message) {

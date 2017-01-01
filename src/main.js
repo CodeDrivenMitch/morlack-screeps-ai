@@ -5,8 +5,9 @@ require('./role.harvester');
 require('./role.upgrader');
 require('./creep');
 
-import Logger from 'util.logger'
-import SettingManager from 'manager.setting'
+import Logger from './util.logger'
+
+console.log("Initializing");
 
 module.exports.loop = function() {
     Logger.debug("Loop!");

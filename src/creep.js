@@ -1,4 +1,4 @@
-import Logger from 'util.logger';
+import Logger from './util.logger';
 
 Creep.prototype.runRole = function() {
     Logger.debug("Running creep " + this.name);

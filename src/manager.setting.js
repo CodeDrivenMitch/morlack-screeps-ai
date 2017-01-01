@@ -1,9 +1,9 @@
 import MemoryManger from "./manager.memory";
+import * as _ from 'lodash';
 
 class SettingManager {
     constructor() {
-        this.settings = MemoryManger.getRawMemory().settings;
-        this.checkValidityOfSettings()
+        this.initializeSettings()
     }
 
 
@@ -11,7 +11,8 @@ class SettingManager {
         return this.settings[type][setting];
     }
 
-    checkValidityOfSettings() {
+    initializeSettings() {
+        this.settings = MemoryManger.getRawMemory().settings;
         // Check if settings exist at all
         if (!this.settings) {
             this.settings = {};
@@ -24,7 +25,6 @@ class SettingManager {
 
             // Check if each setting exists and fill it with default
             _.each(settings, (defaultValue, setting) => {
-                console.log(type, setting, defaultValue);
                 if (!this.settings[type][setting] && this.settings[type][setting] !== false) {
                     this.settings[type][setting] = defaultValue;
                 }

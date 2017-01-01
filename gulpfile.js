@@ -3,8 +3,19 @@ const babel = require('gulp-babel');
 const clean = require('gulp-clean');
 const watch = require('gulp-watch');
 
+const mocha = require('gulp-mocha');
+require('babel-core/register');
+
 const settings = require('./settings');
 
+
+gulp.task('test', () => {
+    // Initialize global mocks so test code compiles and runs initially
+    global.Memory = require('./test/mocks/game');
+    global.Game = require("./test/mocks/game");
+    return gulp.src(['test/**/*.js'])
+        .pipe(mocha())
+})
 
 gulp.task('clean', () => {
     return gulp.src(settings.outputDir + '/**/*.js')
