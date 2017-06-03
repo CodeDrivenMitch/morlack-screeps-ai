@@ -6,7 +6,7 @@ const watch = require('gulp-watch');
 const mocha = require('gulp-mocha');
 require('babel-core/register');
 
-const settings = require('./settings');
+const settings = require('./settings.js').default;
 
 
 gulp.task('test', () => {
@@ -24,10 +24,9 @@ gulp.task('clean', () => {
 
 
 gulp.task('compile', ['clean'], () => {
-
     return gulp.src('src/**/*.js')
         .pipe(babel({
-            presets: ['es2015']
+            presets: ['es2016']
         }))
         .pipe(gulp.dest(settings.outputDir));
 });

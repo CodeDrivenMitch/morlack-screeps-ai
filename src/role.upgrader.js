@@ -1,14 +1,28 @@
-Creep.prototype.runRoleUpgrader = function() {
-    if (this.carry.energy < this.carryCapacity) {
-        let sources = this.room.find(FIND_SOURCES);
-        if (this.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-            this.moveTo(sources[0]);
-        }
+import Logger from "./util.logger";
+
+Creep.prototype.determineStatusUpgrader = function() {
+
+    switch(this.getStatus()) {
+        case "HARVESTING":
+            if(this.isEnergyFull()) {
+                this.setStatus("UPGRADING");
+            }
+            break;
+        case "UPGRADING":
+            if(this.isEnergyEmpty()) {
+                this.setStatus("HARVESTING")
+            }
+            break;
+        default:
+            this.setStatus("HARVESTING");
+            break;
     }
-    else {
-        if (this.upgradeController(this.room.controller) == ERR_NOT_IN_RANGE) {
-            this.moveTo(this.room.controller);
-        }
+};
+
+Creep.prototype.runUpgradeController = function() {
+    Logger.debug("Upgrading controller");
+    if (this.upgradeController(this.room.controller) !== OK) {
+        this.moveTo(this.room.controller.pos);
     }
 };
 
